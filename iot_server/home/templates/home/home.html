@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+</head>
+<body>
+<div>
+    <div class="topnav">
+        <a class="home" href="{% url 'home_block'%}">ホーム</a>
+        <a class="farm" href="{% url 'farm_view'%}">農業</a>
+        <a class="iot-home-view" href="{% url 'iot-home-dashboard' %}">IOT DASHBOARD</a>
+        <a class="contact" href="#contact">連絡</a>
+        <a class="about" href="#about">私達について</a>
+        <a class="login" href="#login">ログイン</a>
+    </div>
+</div>
+{% block home %}
+{% endblock %}
+{% block farm %}
+{% endblock %}
+</body>
+</html>

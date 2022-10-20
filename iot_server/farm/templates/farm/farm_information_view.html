@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm Information</title>
+</head>
+<body>
+    <div><a>Get some info of farm</a></div>
+    <div>
+        <ul>
+            {% for info in farminfos %}
+            <div>
+                <p>------------------------------------------</p>
+                <ul>
+                    <li>id : {{ info.pk }}</li>
+                    <li>name: {{ info.farm_name }}</li>
+                    <li>address: {{ info.address }}</li>
+                    <li>message: {{ info.message }}</li>
+                    <li>gps: {{ info.gps }}</li>
+                    <li>^^^^^^^^^^^
+                        <ul>
+                        <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+                            {% for status in farmstatus %}
+                                {% if status.farminfo_id == info.pk %}
+                                <div>
+
+                                    <ul>
+                                        <li>Temperature: {{ status.temperature }}</li>
+                                        <li>humidity:    {{ status.humidity }}</li>
+                                        <li>pressure:    {{ status.pressure }}</li>
+                                        <li>water:       {{ status.water }}</li>
+                                        <li>wind:        {{ status.wind }}</li>
+                                        <li>datetimeonfarm:{{ status.datetimeonfarm }}</li>
+                                    </ul>
+                                    <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    ^^^^^^^^^^^</li>
+                </ul>
+                <p>------------------------------------------</p>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

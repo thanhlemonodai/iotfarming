@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Farm_status_view_all_data</title>
+</head>
+<body>
+    <div>
+        <p>View all status of farm</p>
+        <ul>
+            {% for status in farmstatus %}
+                <div>
+                    <p>------------------------------------------</p>
+                    <ul>
+                        <li>Temperature: {{ status.temperature }}</li>
+                        <li>humidity:    {{ status.humidity }}</li>
+                        <li>pressure:    {{ status.pressure }}</li>
+                        <li>water:       {{ status.water }}</li>
+                        <li>wind:        {{ status.wind }}</li>
+                        <li>datetimeonfarm:{{ status.datetimeonfarm }}</li>
+                        <li>farm_info: {{ status.farminfo_id }}</li>
+                    </ul>
+                    <p>------------------------------------------</p>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

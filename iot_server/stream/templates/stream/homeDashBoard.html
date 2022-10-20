@@ -1,0 +1,253 @@
+{% extends 'stream/main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'stream/css/style.css' %}">
+
+    <link rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+    crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    {% block main-of-iot-home-dashboard %}
+        <main>
+
+        <div class="cards">
+            <div class="card-single">
+                <div>
+                    <h1 id="temperature">28℃</h1>
+                    <span>Temperature</span>
+                </div>
+                <div>
+                    <span class="las la-temperature-high"></span>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="humidity">79%</h1>
+                    <span>Humidity</span>
+                </div>
+                <div>
+                    <span class="las la-tint"></span>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="wind">10m/s</h1>
+                    <span>Wind</span>
+                </div>
+                <div>
+                    <span class="las la-wind"></span>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div>
+                    <h1 id="pressure">潤い</h1>
+                    <span>Pressure</span>
+                </div>
+                <div>
+                    <span class="las la-tree"></span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="recent-grid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Todo list</h2>
+
+                        <button>See all <span class="las la-arrow-right"></span></button>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table width="100%">
+                                <thead>
+                                    <tr>
+                                        <td>やること</td>
+                                        <td>期限</td>
+                                        <td>状況</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>UI/UX Design</td>
+                                        <td>９月３０日</td>
+                                        <td>
+                                            <span class="status purple"></span>
+                                            UI/UX40％完成
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ビデオ通信開発</td>
+                                        <td>9月10日</td>
+                                        <td>
+                                            <span class="status orange"></span>
+                                            完成
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>トマトにみずやり</td>
+                                        <td>毎日の朝と夜</td>
+                                        <td>
+                                            <span class="status purple"></span>
+                                            作業中
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Web Development</td>
+                                        <td>10月15日</td>
+                                        <td>
+                                            <span class="status pink"></span>
+                                            開発中
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>トマトの頂きを切る</td>
+                                        <td>いいタイミング</td>
+                                        <td>
+                                            <span class="status orange"></span>
+                                            作業中
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customers">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>New Nofication</h2>
+
+                        <button>See all <span class="las la-arrow-right"></span></button>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="customer">
+                            <div class="info">
+                                <img src="{% static 'media/2.jpg' %}" width="40px" height="40px" alt="">
+                                <div>
+                                    <h4>ラインさん</h4>
+                                    <small>ラインの農場</small>
+                                </div>
+                            </div>
+                            <div class="contact">
+                                <span class="las la-user-circle"></span></span>
+                                <span class="las la-comment"></span></span>
+                                <span class="las la-phone"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="customer">
+                            <div class="info">
+                                <img src="{% static 'media/2.jpg' %}" width="40px" height="40px" alt="">
+                                <div>
+                                    <h4>学校</h4>
+                                    <small>学校の農場</small>
+                                </div>
+                            </div>
+                            <div class="contact">
+                                <span class="las la-user-circle"></span></span>
+                                <span class="las la-comment"></span></span>
+                                <span class="las la-phone"></span></span>
+                            </div>
+                        </div>
+
+
+                        <div class="customer">
+                            <div class="info">
+                                <img src="{% static 'media/2.jpg' %}" width="40px" height="40px" alt="">
+                                <div>
+                                    <h4>タイン</h4>
+                                    <small>タインの農場</small>
+                                </div>
+                            </div>
+                            <div class="contact">
+                                <span class="las la-user-circle"></span></span>
+                                <span class="las la-comment"></span></span>
+                                <span class="las la-phone"></span></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+            </div>
+            </div>
+        </div>
+
+
+
+
+    </main>
+
+    <script type="text/javascript">
+        console.log("hello")
+        var temp_ele, humidity_ele, wind_ele, pressure_ele;
+        temp_ele = document.getElementById("temperature");
+        humidity_ele = document.getElementById("humidity");
+        wind_ele = document.getElementById("wind");
+        pressure_ele = document.getElementById("pressure");
+
+        console.log(temp_ele)
+        console.log(humidity_ele)
+        console.log(pressure_ele)
+        console.log(wind_ele)
+
+        window.onload = function() {
+            var evtSource = new EventSource("{% url 'stream-response' %}");
+            let temperature, pressure, humidity, wind;
+
+            evtSource.onmessage = function(e) {
+                console.log(e);
+                console.log("data:" + e.data);
+                let json_data = JSON.parse(e.data);
+                temperature = json_data.temperature;
+                humidity = json_data.humidity;
+                pressure = json_data.pressure;
+                wind = json_data.wind;
+
+                console.log("[" + temperature + pressure + humidity + wind + "]")
+                change_status_tree(temperature, pressure, humidity, wind)
+            }
+        }
+
+        function change_status_tree(temperature, pressure, humidity, wind) {
+            temp_ele.innerHTML = temperature + "℃";
+            pressure_ele.innerHTML = pressure + "Hpa";
+            humidity_ele.innerHTML = humidity + "%";
+            wind_ele.innerHTML = wind + "m/s"
+        }
+
+
+
+
+
+
+
+
+    </script>
+
+    {% endblock %}
+
+
+
+</body>
+</html>

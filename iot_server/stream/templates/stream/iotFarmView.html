@@ -1,0 +1,314 @@
+{% extends 'stream/main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iot farm - view here</title>
+
+    <link rel="stylesheet" href="{% static 'stream/style.css' %}">
+    <link rel="stylesheet" href="{% static 'stream/iotFarmViewCss.css' %}">
+    <style>
+        .join-room-box{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    {% block iot-farm-views %}
+
+        <div class="tree-content">
+            <div class="stream-video-content" >
+
+                <canvas id="videoCanvas" width="480" height="360">
+
+                </canvas>
+                <div class="join-room-box">
+                    <h3 id="username"></h3>
+{#                    <label id="label-username"></label><input id="username-input">#}
+                    <button id="btn-join">Join Room</button>
+                </div>
+                <div class="room_container">
+                    <div class="pomp1">
+                        <span>
+                            <i class="fas fa-lightbulb"></i>
+                            <label class="switch">
+                                <input type="checkbox" id="togBtn" >
+                                <div class="slider round"></div>
+                            </label>
+                        </span>
+
+                        <p class="pomp1-text">給水</p>
+                    </div>
+                    <div class="humidityclear">
+                        <span>
+                            <span class="iconify" data-icon="iconoir:air-conditioner" data-width="36" data-height="36" ></span>
+                            <label class="switch1">
+                                <input type="checkbox" id="togBtn1" >
+                                <div class="slider1 round"></div>
+                            </label>
+                        </span>
+
+                        <p class="led-room1-text">除湿</p>
+                    </div>
+                    <div class="door-lock">
+                        <span>
+                            <i class="fas fa-door-open"></i>
+                            <label class="switch2">
+                                <input type="checkbox" id="togBtn2" >
+                                <div class="slider2 round"></div>
+                            </label>
+                        </span>
+
+                        <p class="door-text">屋根のドーア</p>
+                    </div>
+
+                    <div class="energy-saving">
+                        <span>
+                            <span class="iconify" data-icon="carbon:energy-renewable" style="color: white;" data-width="36" data-height="36"></span>
+                            <label class="switch3">
+                                <input type="checkbox" id="togBtn3" >
+                                <div class="slider3 round"></div>
+                            </label>
+                        </span>
+
+                        <p class="door-text">Energy Saving</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="cards2">
+                <div class="card-farm">
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="temperature">28℃</h1>
+                            <span>温度</span>
+                        </div>
+                        <div>
+                            <span class="las la-temperature-high"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="humidity">79%</h1>
+                            <span>湿度</span>
+                        </div>
+                        <div>
+                            <span class="las la-tint"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="wind">10m/s</h1>
+                            <span>風速</span>
+                        </div>
+                        <div>
+                            <span class="las la-wind"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="pressure">1000mpa</h1>
+                            <span>圧力</span>
+                        </div>
+                        <div>
+                            <span class="las la-tree"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-tree">
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="temperature">潤い</h1>
+                            <span>土壌の水分</span>
+                        </div>
+                        <div>
+                            <span class="las la-temperature-high"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id="temperature">50cm</h1>
+                            <span>高さ</span>
+                        </div>
+                        <div>
+                            <span class="las la-temperature-high"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id=""></h1>
+                            <span></span>
+                        </div>
+                        <div>
+                            <span class="las la-temperature-high"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single2">
+                        <div>
+                            <h1 id=""></h1>
+                            <span></span>
+                        </div>
+                        <div>
+                            <span class="las la-temperature-high"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+<script>
+    console.log(window.location.host)
+    var usernameInput = document.querySelector('#username');
+    var btnJoin = document.querySelector('#btn-join');
+    var isCreatedOffer = false;
+    var isAnsweredsdp = false;
+    var username;
+    var pc = null;
+    var websocket;
+    var arrayOfBlobs = [];
+    var iceSDP = {};
+    var ndem = 0;
+    var ngrok_url = "{{ ngrok_url }}"
+
+    const b64_string = "data:image/png;base64,"
+
+    var video = document.getElementById("#video")
+    var mimeCodec = ""
+    var temp_ele, humidity_ele, wind_ele, pressure_ele;
+        temp_ele = document.getElementById("temperature");
+        humidity_ele = document.getElementById("humidity");
+        wind_ele = document.getElementById("wind");
+        pressure_ele = document.getElementById("pressure");
+
+        console.log(temp_ele)
+        console.log(humidity_ele)
+        console.log(pressure_ele)
+        console.log(wind_ele)
+
+        window.onload = function() {
+            var evtSource = new EventSource("{% url 'stream-response' %}");
+            let temperature, pressure, humidity, wind;
+
+            evtSource.onmessage = function(e) {
+                console.log(e);
+                console.log("data:" + e.data);
+                let json_data = JSON.parse(e.data);
+                temperature = json_data.temperature;
+                humidity = json_data.humidity;
+                pressure = json_data.pressure;
+                wind = json_data.wind;
+
+                console.log("[" + temperature + pressure + humidity + wind + "]")
+                change_status_tree(temperature, pressure, humidity, wind)
+            }
+        }
+
+        function change_status_tree(temperature, pressure, humidity, wind) {
+            temp_ele.innerHTML = temperature + "℃";
+            pressure_ele.innerHTML = pressure + "Hpa";
+            humidity_ele.innerHTML = humidity + "%";
+            wind_ele.innerHTML = wind + "m/s"
+        }
+
+     async function webSocketOnMessage(event) {
+
+        var text = await event['data'].text();
+
+        console.log(b64_string + text);
+
+
+        var canvas = document.getElementById('videoCanvas');
+        var context = canvas.getContext('2d');
+        var imageObj = new Image();
+        imageObj.onload = function () {
+            context.drawImage(imageObj, 0, 0, 480, 360);
+        };
+        imageObj.src = b64_string + text;
+    }
+
+
+
+
+    btnJoin.addEventListener('click', () => {
+        username = usernameInput.value;
+
+        console.log(username)
+        if (username === '') {
+            return;
+        }
+        usernameInput.value = '';
+        usernameInput.disabled = true;
+        usernameInput.getElementsByClassName.visibility = 'hidden';
+
+        btnJoin.disabled = true;
+        btnJoin.getElementsByClassName.visibility = 'hidden';
+
+        var pathName = '/iot-farm/stream'
+
+        var loc = window.location;
+        var wsStart = 'ws://' + ngrok_url;
+
+        if (loc.protocol === 'https:') {
+            wsStart = 'wss://' + ngrok_url;
+        }
+
+        var endPoint = wsStart + loc.host + loc.pathname + pathName;
+
+        console.log('EndPoint: ', endPoint);
+
+        webSocket = new WebSocket(endPoint);
+
+
+        webSocket.addEventListener('open', (e) => {
+            console.log('Conection Opened!');
+            // webSocket.send(JSON.stringify({
+            //     message : "hello this is first from webRTC",
+            //     type : "word",
+            //     user : "webRTC",
+            // }))
+        });
+
+        webSocket.addEventListener('message', webSocketOnMessage);
+
+
+
+
+
+        webSocket.addEventListener('close', (e) => {
+            console.log('Disconnected!');
+
+        });
+        webSocket.addEventListener('error', (e) => {
+            console.log('Error Occurred!');
+        });
+    });
+
+
+
+
+
+
+</script>
+    {% endblock %}
+
+</body>
+<script>
+
+</script>
+
+</html>

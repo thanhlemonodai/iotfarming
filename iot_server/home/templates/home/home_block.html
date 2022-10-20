@@ -1,0 +1,35 @@
+{% extends 'stream/main.html' %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+</head>
+<body>
+    {% block home %}
+    <div>
+
+        <ul>
+            <li>view non-API</li>
+            <li><a href="{% url 'farm-status-view-all' %}">View list status of farm</a></li>
+            <li><a href="{% url 'farm-info-view' %}">View info of farm</a></li>
+            <li><a href="{% url 'vegetable-status-view' %}">View vegetable status</a></li>
+            <li><a href="{% url 'vegetable-view' %}">View category of vegetable</a></li>
+            <li>view API</li>
+            <li><a href="{% url 'api-farm-status-create' %}">Create a status farm</a></li>
+            <li><a href="{% url 'api-farm-status-list-view' %}">farm view status all</a></li>
+            <li><a href="{% url 'api-farm-info-create' %}">Create new info farm</a></li>
+            <li><a href="{% url 'api-farm-info-list' %}">View all farm</a></li>
+
+            <li><a href="{% url 'api-vegetable-create' %}">Create a status Vegetable INFO</a></li>
+            <li><a href="{% url 'api-vegetable-list-view' %}">Vegetable INFO view status all</a></li>
+            <li><a href="{% url 'api-vegetable-status-create' %}">Create new info Vegetable STATUS</a></li>
+            <li><a href="{% url 'api-vegetable-status-list-view' %}">View all Vegetable STATUS</a></li>
+        </ul>
+    </div>
+    {% endblock %}
+</body>
+</html>
