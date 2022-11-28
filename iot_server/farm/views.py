@@ -69,6 +69,7 @@ def api_farm_status_create(request):
 
     if serializers.is_valid():
         serializers.save()
+    else:
         print(serializers.errors)
     return Response(serializers.data)
 
@@ -80,6 +81,8 @@ def api_farm_status_update(request, pk):
                                         data=request.data)
     if serializers.is_valid():
         serializers.save()
+    else:
+        print(serializers.errors)
     return Response(serializers.data)
 
 ###############################################
@@ -114,6 +117,8 @@ def api_farm_info_update(request, pk):
                                         data=request.data)
     if serializers.is_valid():
         serializers.save()
+    else:
+        print(serializers.errors)
     return Response(serializers.data)
 
 ###############################################
@@ -187,3 +192,15 @@ def api_vegetable_status_update(request, pk):
 @csrf_exempt
 def farm_view(request):
     return render(request, 'farm/farm.html')
+
+
+@api_view(['POST', 'GET'])
+@csrf_exempt
+def cam_model_crate(request):
+    serializers = TestCamSerializers(data = request.data)
+
+    if serializers.is_valid():
+        print(serializers.errors)
+        serializers.save()
+    return Response(serializers.data)
+

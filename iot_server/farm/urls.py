@@ -76,4 +76,10 @@ urlpatterns = [
 
 ###########################################
     path('farm/', views.farm_view, name='farm_view'),
+
+###########################################
+    path('api/test-cam/create/',
+         views.cam_model_crate,
+         name='api-test-cam-create'),
 ]
+

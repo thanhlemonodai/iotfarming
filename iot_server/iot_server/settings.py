@@ -17,36 +17,36 @@ import requests
 import pyrebase
 
 
-def add_url_to_firebase(url):
-    print('setting')
-    firebaseConfig = {"apiKey": "AIzaSyACZIpVXpHPsHUdewz0UbLP63vS5ljm7V8",
-                      "authDomain": "testarduino-0000.firebaseapp.com",
-                      "projectId": "testarduino-0000",
-                      "databaseURL": "https://testarduino-0000-default-rtdb.asia-southeast1.firebasedatabase.app",
-                      "storageBucket": "testarduino-0000.appspot.com",
-                      "messagingSenderId": "849041339991",
-                      "appId": "1:849041339991:web:b0a8bd2d653201c1275512",
-                      "measurementId": "G-LJZW5X7QG5"
-                      }
-    firebase = pyrebase.initialize_app(firebaseConfig)
-
-    db = firebase.database()
-
-    db.child("raspserver").child("url").set(url)
-    print('setting is ok')
-
-def get_ngrok_url():
-    url = "http://localhost:4040/api/tunnels/"
-    res = requests.get(url)
-    res_unicode = res.content.decode("utf-8")
-    res_json = json.loads(res_unicode)
-    for i in res_json["tunnels"]:
-        if i['name'] == 'django':
-            return i['public_url']
-
-url_string = get_ngrok_url()
-print(url_string)
-add_url_to_firebase(url_string)
+# def add_url_to_firebase(url):
+#     print('setting')
+#     firebaseConfig = {"apiKey": "AIzaSyACZIpVXpHPsHUdewz0UbLP63vS5ljm7V8",
+#                       "authDomain": "testarduino-0000.firebaseapp.com",
+#                       "projectId": "testarduino-0000",
+#                       "databaseURL": "https://testarduino-0000-default-rtdb.asia-southeast1.firebasedatabase.app",
+#                       "storageBucket": "testarduino-0000.appspot.com",
+#                       "messagingSenderId": "849041339991",
+#                       "appId": "1:849041339991:web:b0a8bd2d653201c1275512",
+#                       "measurementId": "G-LJZW5X7QG5"
+#                       }
+#     firebase = pyrebase.initialize_app(firebaseConfig)
+#
+#     db = firebase.database()
+#
+#     db.child("raspserver").child("url").set(url)
+#     print('setting is ok')
+#
+# def get_ngrok_url():
+#     url = "http://localhost:4040/api/tunnels/"
+#     res = requests.get(url)
+#     res_unicode = res.content.decode("utf-8")
+#     res_json = json.loads(res_unicode)
+#     for i in res_json["tunnels"]:
+#         if i['name'] == 'django':
+#             return i['public_url']
+#
+# url_string = get_ngrok_url()
+# print(url_string)
+# add_url_to_firebase(url_string)
 
 
 

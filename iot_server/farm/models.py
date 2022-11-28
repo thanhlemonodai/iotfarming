@@ -63,3 +63,21 @@ class ControlButtonInFarm(models.Model):
 class VegetableTimeLapseVideo(models.Model):
     growth_video = models.FileField()   #ミニトマトの生長の管理ビデオ
 
+
+
+class TestCam(models.Model):
+    """
+    veget: 1　ラディッシュ　右　　　　カメラの方向と位置
+    　　　　２　ラディッシュ　左
+    　　　　３　ラディッシュ　前
+    """
+    frame_buf = models.TextField(default=b"abc")
+    height = models.IntegerField(default=240)
+    width = models.IntegerField(default=320)
+    lenght = models.IntegerField(default=0)
+    veget = models.IntegerField(default = 9)
+
+
+    def __str__(self):
+        name = "binaryfield"
+        return "{}:{}".format(name, self.id)

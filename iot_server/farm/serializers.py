@@ -34,3 +34,8 @@ class ControlButtonInFarmSerializers(serializers.ModelSerializer):
     class Meta:
         model = ControlButtonInFarm
         fields = "__all__"
+
+class TestCamSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TestCam
+        fields = "__all__"
