@@ -43,6 +43,9 @@ def stream_response_generator(request):
     wind = farmstatus.wind
     humidity = farmstatus.humidity
     pressure = farmstatus.pressure
+    soilhumidity = int(farmstatus.water)
+
+    print(soilhumidity)
 
     #vegetable status
     width = vegetable.width
@@ -53,18 +56,20 @@ def stream_response_generator(request):
     humidity_string = '"humidity":"{}"'.format(humidity)
     pressure_string = '"pressure":"{}"'.format(pressure)
     wind_string = '"wind":"{}"'.format(wind)
+    soilhumidity_string = '"soilhumidity" : "{}" '.format(soilhumidity)
 
     base64_buf_rightcam_string = '"b64bufC01":"{}"'.format(base64_buf_rightcam)
     base64_buf_leftcam_string = '"b64bufC02":"{}"'.format(base64_buf_leftcam)
     base64_buf_frontcam_string = '"b64bufC03":"{}"'.format(base64_buf_frontcam)
 
-    string = "{" + "{}, {}, {}, {}, {}, {}, {}".format(temp_string,
-                                                       humidity_string,
-                                                       pressure_string,
-                                                       wind_string,
-                                                       base64_buf_rightcam_string,
-                                                       base64_buf_leftcam_string,
-                                                       base64_buf_frontcam_string) + "}"
+    string = "{" + "{}, {}, {}, {}, {}, {}, {}, {}".format(temp_string,
+                                                           humidity_string,
+                                                           pressure_string,
+                                                           wind_string,
+                                                           soilhumidity_string,
+                                                           base64_buf_rightcam_string,
+                                                           base64_buf_leftcam_string,
+                                                           base64_buf_frontcam_string) + "}"
 
     yield "data: %s\n" "retry:4000\n\n" % string
 

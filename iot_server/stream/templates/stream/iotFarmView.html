@@ -139,7 +139,7 @@
                 <div class="card-tree">
                     <div class="card-single2">
                         <div>
-                            <h1 id="temperature">潤い</h1>
+                            <h1 id="soilhumidity">潤い</h1>
                             <span>土壌の水分</span>
                         </div>
                         <div>
@@ -224,6 +224,7 @@
     humidity_ele = document.getElementById("humidity");
     wind_ele = document.getElementById("wind");
     pressure_ele = document.getElementById("pressure");
+    soilhumidity_ele = document.getElementById("soilhumidity")
 
 
     window.onload = function() {
@@ -244,13 +245,14 @@
             humidity = json_data.humidity;
             pressure = json_data.pressure;
             wind = json_data.wind;
+            soilhumidity = json_data.soilhumidity;
 
             b64bufC01 = json_data.b64bufC01;
             b64bufC02 = json_data.b64bufC02;
             b64bufC03 = json_data.b64bufC03;
 
             //console.log("[" + temperature + pressure + humidity + wind + "]")
-            change_status_tree(temperature, pressure, humidity, wind)
+            change_status_tree(temperature, pressure, humidity, wind, soilhumidity)
 
             draw_image(b64bufC01, b64bufC02, b64bufC03)
 
@@ -302,7 +304,19 @@
 
     }
 
-    function change_status_tree(temperature, pressure, humidity, wind) {
+    function change_status_tree(temperature, pressure, humidity, wind, soilhumidity) {
+        if (soilhumidity / 1000 > 900) {
+            soilhumidity_ele.innerHTML = "乾燥"
+        }　else if (soilhumidity / 1000 < 900 && soilhumidity / 1000 > 600){
+            soilhumidity_ele.innerHTML = "やや乾燥"
+        }　else if (soilhumidity / 1000 < 600 && soilhumidity / 1000 > 400) {
+            soilhumidity_ele.innerHTML = "潤い"
+        }　else if (soilhumidity / 1000 < 400 ) {
+            soilhumidity_ele.innerHTML = "多い"
+        }
+
+
+
         temp_ele.innerHTML = temperature + "℃";
         pressure_ele.innerHTML = pressure + "Hpa";
         humidity_ele.innerHTML = humidity + "%";
