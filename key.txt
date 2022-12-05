@@ -1,0 +1,6 @@
+connect to server with public key
+ssh -i ~/Desktop/tomato-sv_key.pem azureuser@104.46.229.78
+
+
+copy folder to server 
+scp -i ~/Desktop/tomato-sv_key.pem -r stream azureuser@104.46.229.78:~/iotfarming/iot_server
