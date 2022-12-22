@@ -17,36 +17,33 @@
 <body>
 
 
-    {% block iot-farm-views %}
-        <div class="title-iot">
-            <h2>一段</h2><h2>ラディッシュ</h2>
-        </div>
+{% block iot-farm-views %}
+    <div class="title-iot">
+        <h2>一段</h2><h2>ラディッシュ</h2>
+    </div>
 
-
+    <div class="main-farm-content">
         <div class="tree-content">
-
             <div class="stream-video-content" >
+                <div class="video-container">
+                    <canvas class="video-canvas" id="videoCanvas1" width="360" height="240">
 
-                <canvas id="videoCanvas1" width="360" height="240">
+                    </canvas>
 
-                </canvas>
+                    <canvas class="video-canvas" id="videoCanvas2" width="360" height="240">
 
-                <canvas id="videoCanvas2" width="360" height="240">
+                    </canvas>
 
-                </canvas>
+                    <canvas class="video-canvas" id="videoCanvas3" width="360" height="240">
 
-                <canvas id="videoCanvas3" width="360" height="240">
+                    </canvas>
 
-                </canvas>
+                    <canvas class="video-canvas" id="videoCanvas4" width="360" height="240">
 
-                <canvas id="videoCanvas4" width="360" height="240">
-
-                </canvas>
-                <div class="join-room-box">
-                    <h3 id="username"></h3>
-{#                    <label id="label-username"></label><input id="username-input">#}
-                    <button id="btn-join">Join Room</button>
+                    </canvas>
                 </div>
+
+
                 <div class="room_container">
                     <div class="pomp1">
                         <span>
@@ -121,11 +118,11 @@
 
                     <div class="card-single2">
                         <div>
-                            <h1 id="wind">10m/s</h1>
-                            <span>風速</span>
+                            <h1 id="soilhumidity">潤い</h1>
+                            <span>土壌の水分</span>
                         </div>
                         <div>
-                            <span class="las la-wind"></span>
+                            <span class="las la-temperature-high"></span>
                         </div>
                     </div>
 
@@ -180,22 +177,24 @@
 
         </div>
         <div class="status-chart">
-            <div style="width: 240px; height: 180px;">
+            <div style="width: 320px; height: 240px;">
             <canvas id="tempchart" width="320" height="240"></canvas>
             </div>
 
-            <div style="width: 240px; height: 180px;">
+            <div style="width: 320px; height: 240px;">
                 <canvas id="waterchart" width="320" height="240"></canvas>
             </div>
 
-            <div style="width: 240px; height: 180px;">
+            <div style="width: 320px; height: 240px;">
                 <canvas id="treechart" width="320" height="240"></canvas>
             </div>
 
-            <div style="width: 240px; height: 180px;">
+            <div style="width: 320px; height: 240px;">
                 <canvas id="humiditychart" width="320" height="240"></canvas>
             </div>
         </div>
+    </div>
+
 
 
 
@@ -521,8 +520,7 @@
 
 
 </script>
-
-    {% endblock %}
+{% endblock %}
 
 </body>
 

@@ -1,9 +1,15 @@
 
+.main-farm-content {
+    display: grid;
+    width: auto;
+
+}
+
 .stream-video-content {
     background-color: #f0f0f0;
-    width: 700px;
-    height: 550px;
-    margin-left: 1.5rem;
+    width: 800px;
+    height: 100%;
+    margin-left: 0.5rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     border-radius: 2px;
@@ -12,40 +18,52 @@
     text-align: center;
 }
 
+.video-container {
+    display: grid;
+    margin-left: 20px;
+    width: 800px;
+    grid-template-columns: repeat(2, 0.5fr);
+}
+
+.video-canvas {
+    margin-top: 1.5rem;
+}
+
 .stream-video-content canvas {
     background-color: #1b6d85;
 }
+
 
 .tree-content {
 
     margin-top: 10px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    width: 90%;
+    grid-template-columns: 800px 50% max-content 1fr auto minmax(100px, 500px);
 
     background-color: #FFFFCC;
 }
 
 .cards2 {
-
+    margin-left: 50px;
     display: grid;
-    width: 550px;
+
     margin-top:1.5rem;
     margin-bottom:1.5rem;
-    grid-template-columns: repeat(2, 1fr);
-
+    grid-template-columns: repeat(2, 0.1fr);
     grid-gap: 2rem;
 }
 
 .card-farm {
     display: grid;
     grid-auto-rows: auto;
-    grid-gap: 2rem;
+    grid-gap: 1rem;
 }
 
 .card-tree {
     display: grid;
     grid-auto-rows: auto;
-    grid-gap: 2rem;
+    grid-gap: 1rem;
 }
 
 .card-single2 {
@@ -56,7 +74,7 @@
     padding: 2rem;
     border-radius: 10px;
     height: 120px;
-
+    width: 250px;
     box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -170,7 +188,64 @@
 
 }
 
+@media only screen and (max-width: 600px) {
+    .main-farm-content{
+        background: red;
+    }
 
+    .tree-content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        background-color: #FFFFCC;
+    }
+
+    .stream-video-content {
+        width: auto;
+        height: auto;
+    }
+
+    .video-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .room_container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 30%;
+    }
+
+    .cards2 {
+
+        display: grid;
+        margin-top:1.5rem;
+        margin-bottom:1.5rem;
+        grid-template-columns: repeat(2, 15%);
+
+    }
+
+    .card-farm {
+        display: grid;
+        grid-auto-rows: auto;
+        grid-gap: 2rem;
+    }
+
+    .card-tree {
+        display: grid;
+        grid-auto-rows: auto;
+        grid-gap: 2rem;
+    }
+
+    .card-single2 {
+        width: 200px;
+    }
+
+    .card-single2 h1 {
+        font-size: 1.5rem;
+    }
+
+
+}
 
 
 
