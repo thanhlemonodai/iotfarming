@@ -70,7 +70,7 @@ urlpatterns = [
     path('api/veget-status/create/',
          views.api_vegetable_status_post,
          name='api-vegetable-status-create'),
-    path('api/veget-status/update/<str:pk>',
+    path('api/veget-status/update/<str:pk>/',
          views.api_vegetable_status_update,
          name='api-vegetable-status-update'),
 
@@ -81,5 +81,15 @@ urlpatterns = [
     path('api/test-cam/create/',
          views.cam_model_crate,
          name='api-test-cam-create'),
+
+###########################################
+    path('api/button/view/<str:pk>/',
+         views.control_button_farm_view,
+         name='control-button-farm-viewdetail'),
+    
+
+    path('api/button/update/<str:pk>/',
+         views.control_button_farm_update,
+         name='control-button-farm-update'),
 ]
 

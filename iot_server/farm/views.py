@@ -204,3 +204,20 @@ def cam_model_crate(request):
         serializers.save()
     return Response(serializers.data)
 
+@api_view(['POST','GET'])
+@csrf_exempt
+def control_button_farm_update(request, pk):
+    controlButton = ControlButtonInFarm.objects.get(id=pk)
+    serializers = ControlButtonInFarmSerializers(instance=controlButton,
+                                                 data=request.data)
+
+    if serializers.is_valid():
+        serializers.save()
+    return Response(serializers.data)
+
+@api_view(['GET'])
+@csrf_exempt
+def control_button_farm_view(request, pk):
+    controlButton = ControlButtonInFarm.objects.get(id=pk)
+    serializers = ControlButtonInFarmSerializers(controlButton, many=False)
+    return Response(serializers.data)

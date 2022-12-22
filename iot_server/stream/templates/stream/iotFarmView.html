@@ -27,15 +27,19 @@
 
             <div class="stream-video-content" >
 
-                <canvas id="videoCanvas1" width="320" height="240">
+                <canvas id="videoCanvas1" width="360" height="240">
 
                 </canvas>
 
-                <canvas id="videoCanvas2" width="320" height="240">
+                <canvas id="videoCanvas2" width="360" height="240">
 
                 </canvas>
 
-                <canvas id="videoCanvas3" width="320" height="240">
+                <canvas id="videoCanvas3" width="360" height="240">
+
+                </canvas>
+
+                <canvas id="videoCanvas4" width="360" height="240">
 
                 </canvas>
                 <div class="join-room-box">
@@ -214,6 +218,36 @@
     var ndem = 0;
     var ngrok_url = "{{ ngrok_url }}"
 
+    var pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy;
+    var url = "http://104.46.229.78:8000/api/button/update/3/"
+    get_control_button_farm(url)
+    console.log("pomp1 " + pomp1 + " pomp2 " + pomp2 + " saveenergy " + saveenergy);
+    function get_control_button_farm (url) {
+        fetch(url, {
+            method: "GET",
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+
+            console.log("Network response was not ok")
+        })
+        .then(resJson => {
+            let jsondata = JSON.parse(resJson)
+            pomp1 = jsondata.pomp1
+            pomp2 = jsondata.pomp2
+            servor1 = jsondata.servor1
+            servor2 = jsondata.servor2
+            fan1 = jsondata.fan1
+            fan2 = jsondata.fan2
+            saveenergy = jsondata.saveEnergy
+
+        })
+        .catch(error => {
+            console.error(error);
+        })
+    }
     const b64_string = "data:image/png;base64,"
 
     var video = document.getElementById("#video")
@@ -238,7 +272,7 @@
         evtSource.onmessage = function(e) {
             //console.log(e);
             //console.log("data:" + e.data);
-            var b64bufC01, b64bufC02, b64bufC03;
+            var b64bufC01, b64bufC02, b64bufC03, b64bufC04;
             let json_data = JSON.parse(e.data);
 
             temperature = json_data.temperature;
@@ -246,15 +280,16 @@
             pressure = json_data.pressure;
             wind = json_data.wind;
             soilhumidity = json_data.soilhumidity;
-
+		console.log("soil :" + soilhumidity);
             b64bufC01 = json_data.b64bufC01;
             b64bufC02 = json_data.b64bufC02;
             b64bufC03 = json_data.b64bufC03;
+            b64bufC04 = json_data.b64bufC04;
 
             //console.log("[" + temperature + pressure + humidity + wind + "]")
             change_status_tree(temperature, pressure, humidity, wind, soilhumidity)
 
-            draw_image(b64bufC01, b64bufC02, b64bufC03)
+            draw_image(b64bufC01, b64bufC02, b64bufC03, b64bufC04)
 
 
 
@@ -266,55 +301,65 @@
     var buffer_video_C01 = [];
     var buffer_video_C02 = [];
     var buffer_video_C03 = [];
-    function draw_image(b64bufC01, b64bufC02, b64bufC03) {
+    var buffer_video_C04 = [];
+    function draw_image(b64bufC01, b64bufC02, b64bufC03, b64bufC04) {
         console.log("printout NOW");
 
         var canvas1 = document.getElementById('videoCanvas1');
         var canvas2 = document.getElementById('videoCanvas2');
         var canvas3 = document.getElementById('videoCanvas3');
+        var canvas4 = document.getElementById('videoCanvas4');
 
         var context1 = canvas1.getContext('2d');
         var context2 = canvas2.getContext('2d');
         var context3 = canvas3.getContext('2d');
+        var context4 = canvas4.getContext('2d');
 
         var imageObj1 = new Image();
         var imageObj2 = new Image();
         var imageObj3 = new Image();
+        var imageObj4 = new Image();
 
         imageObj1.src = b64_string + b64bufC01;
         imageObj1.onload = function () {
             console.log("draw image 1")
 
-            context1.drawImage(imageObj1, 0, 0, 480, 360);
+            context1.drawImage(imageObj1, 0, 0, 360, 240);
         };
 
 
         imageObj2.src = b64_string + b64bufC02;
         imageObj2.onload = function () {
 
-            context2.drawImage(imageObj2, 0, 0, 480, 360);
+            context2.drawImage(imageObj2, 0, 0, 360, 240);
         };
 
 
         imageObj3.src = b64_string + b64bufC03;
         imageObj3.onload = function () {
 
-            context3.drawImage(imageObj3, 0, 0, 480, 360);
+            context3.drawImage(imageObj3, 0, 0, 360, 240);
+        };
+
+        imageObj4.src = b64_string + b64bufC04;
+        imageObj4.onload = function () {
+
+            context4.drawImage(imageObj4, 0, 0, 360, 240);
         };
 
     }
 
     function change_status_tree(temperature, pressure, humidity, wind, soilhumidity) {
-        if (soilhumidity / 1000 > 900) {
+        if (soilhumidity / 10000 > 900) {
             soilhumidity_ele.innerHTML = "乾燥"
-        }　else if (soilhumidity / 1000 < 900 && soilhumidity / 1000 > 600){
+        }　else if (soilhumidity / 10000 < 900 && soilhumidity / 10000 > 600){
             soilhumidity_ele.innerHTML = "やや乾燥"
-        }　else if (soilhumidity / 1000 < 600 && soilhumidity / 1000 > 400) {
+        }　else if (soilhumidity / 10000 < 600 && soilhumidity / 10000 > 400) {
             soilhumidity_ele.innerHTML = "潤い"
-        }　else if (soilhumidity / 1000 < 400 ) {
+        }　else if (soilhumidity / 10000 < 400 ) {
+	
             soilhumidity_ele.innerHTML = "多い"
         }
-
 
 
         temp_ele.innerHTML = temperature + "℃";
@@ -323,18 +368,42 @@
         wind_ele.innerHTML = wind + "m/s"
     }
 
+    function control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy) {
+
+    }
+
+
+    var togBtn = document.getElementById("togBtn");
+    var togBtn1 = document.getElementById("togBtn1");
+    var togBtn2 = document.getElementById("togBtn2");
+    var togBtn3 = document.getElementById("togBtn3");
+
+    togBtn.addEventListener("click", function() {
+        pomp1 = togBtn.checked === true;
+        control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy);
+    })
+
+    togBtn1.addEventListener("click", function() {
+        pomp2 = togBtn.checked === true;
+        control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy);
+    })
+
+    togBtn2.addEventListener("click", function() {
+        fan1 = togBtn.checked === true;
+        control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy);
+    })
+
+    //save energy
+    togBtn3.addEventListener("click", function() {
+        saveenerg = togBtn.checked === true;
+        control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy);
+    })
+
     var buffer_video = [];
 
     async function webSocketOnMessage(event) {
 
         var text = await event['data'].text();
-
-
-
-
-        var canvas1 = document.getElementById('videoCanvas1');
-        var canvas2 = document.getElementById('videoCanvas2');
-        var canvas3 = document.getElementById('videoCanvas3');
 
         var context = canvas.getContext('2d');
         var imageObj = new Image();
@@ -350,61 +419,6 @@
 
     imageObj.src = b64_string + text;
     }
-
-    btnJoin.addEventListener('click', () => {
-        username = usernameInput.value;
-
-        console.log(username)
-        if (username === '') {
-            return;
-        }
-        usernameInput.value = '';
-        usernameInput.disabled = true;
-        usernameInput.getElementsByClassName.visibility = 'hidden';
-
-        btnJoin.disabled = true;
-        btnJoin.getElementsByClassName.visibility = 'hidden';
-
-        var pathName = '/iot-farm/stream'
-
-        var loc = window.location;
-        var wsStart = 'ws://' + ngrok_url;
-
-        if (loc.protocol === 'https:') {
-            wsStart = 'wss://' + ngrok_url;
-        }
-
-        var endPoint = wsStart + loc.host + loc.pathname + pathName;
-
-        console.log('EndPoint: ', endPoint);
-
-        webSocket = new WebSocket(endPoint);
-
-
-        webSocket.addEventListener('open', (e) => {
-            console.log('Conection Opened!');
-            // webSocket.send(JSON.stringify({
-            //     message : "hello this is first from webRTC",
-            //     type : "word",
-            //     user : "webRTC",
-            // }))
-        });
-
-        webSocket.addEventListener('message', webSocketOnMessage);
-
-
-
-
-
-        webSocket.addEventListener('close', (e) => {
-            console.log('Disconnected!');
-
-        });
-        webSocket.addEventListener('error', (e) => {
-            console.log('Error Occurred!');
-        });
-    });
-
 
     function drawchart() {
         //temperature of chart

@@ -80,4 +80,4 @@ class TestCam(models.Model):
 
     def __str__(self):
         name = "binaryfield"
-        return "{}:{}".format(name, self.id)
+        return "Position:{}--{}:{}".format(self.veget, name, self.id)
