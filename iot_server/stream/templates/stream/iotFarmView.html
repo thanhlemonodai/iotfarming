@@ -219,8 +219,9 @@
 
     var pomp1, pomp2, servor1, servor2, fan1, fan2, saveenergy;
     var url = "http://104.46.229.78:8000/api/button/update/3/"
-    get_control_button_farm(url)
-    console.log("pomp1 " + pomp1 + " pomp2 " + pomp2 + " saveenergy " + saveenergy);
+    var url_controlbutton = "http://104.46.229.78:8000/api/button/view/3/"
+    get_control_button_farm(url_controlbutton)
+
     function get_control_button_farm (url) {
         fetch(url, {
             method: "GET",
@@ -233,7 +234,8 @@
             console.log("Network response was not ok")
         })
         .then(resJson => {
-            let jsondata = JSON.parse(resJson)
+            console.log(resJson)
+            let jsondata = resJson
             pomp1 = jsondata.pomp1
             pomp2 = jsondata.pomp2
             servor1 = jsondata.servor1
@@ -301,7 +303,7 @@
     var buffer_video_C03 = [];
     var buffer_video_C04 = [];
     function draw_image(b64bufC01, b64bufC02, b64bufC03, b64bufC04) {
-        console.log("printout NOW");
+        console.log("pomp1 " + pomp1 + " pomp2 " + pomp2 + " saveenergy " + saveenergy);
 
         var canvas1 = document.getElementById('videoCanvas1');
         var canvas2 = document.getElementById('videoCanvas2');
@@ -320,7 +322,6 @@
 
         imageObj1.src = b64_string + b64bufC01;
         imageObj1.onload = function () {
-            console.log("draw image 1")
 
             context1.drawImage(imageObj1, 0, 0, 360, 240);
         };
