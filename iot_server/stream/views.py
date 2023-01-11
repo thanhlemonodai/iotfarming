@@ -2,12 +2,13 @@ from django.shortcuts import render
 import requests
 import requests.exceptions
 import json
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 
 
 # Create your views here.
+@csrf_exempt
 def homeDashBoard(request):
 
     s = get_ngrok_url()
@@ -17,6 +18,7 @@ def homeDashBoard(request):
     }
     return render(request, 'stream/homeDashBoard.html', context)
 
+@csrf_exempt
 def iotFarmView(request):
     s = get_ngrok_url()
 

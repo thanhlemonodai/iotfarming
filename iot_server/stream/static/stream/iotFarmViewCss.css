@@ -8,7 +8,7 @@
 .stream-video-content {
     background-color: #f0f0f0;
     width: 800px;
-    height: 100%;
+
     margin-left: 0.5rem;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -39,8 +39,8 @@
     margin-top: 10px;
     display: grid;
     width: 90%;
+    height: 100%;
     grid-template-columns: 800px 50% max-content 1fr auto minmax(100px, 500px);
-
     background-color: #FFFFCC;
 }
 

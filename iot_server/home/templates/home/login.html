@@ -1,0 +1,34 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend>Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn-outline-info" type="submit">
+                    Login
+                </button>
+            </div>
+        </form>
+        <div class="border-top">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register' %}">Register</a>
+            </small>
+        </div>
+        <div class="border-top-1">
+            <small class="text-muted">
+                Back to homepages? <a class="ml-2" href="{% url 'iot-home-dashboard' %}">IOT HOME</a>
+            </small>
+        </div>
+    </div>
+</body>
+</html>

@@ -116,12 +116,14 @@
 header {
     display: flex;
     justify-content: space-between;
+    text-align: center;
     background: whitesmoke;
     padding: 1rem 1.5rem;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     position: fixed;
     left: var(--side-index-left);
     width: calc(100% - var(--side-index-left));
+    height: 62px;
     top:0;
     z-index: 100;
     transition: left 600ms;
@@ -135,6 +137,18 @@ header h2 {
 header label span {
     font-size: 1.7rem;
     padding-right: 1rem;
+}
+header .login .register .logout {
+    display: flex;
+    text-align: center;
+    height: 30px;
+}
+
+header div button {
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    background: none;
 }
 
 .search-wrapper {
@@ -338,6 +352,11 @@ tr td:last-child {
 
 #nav-toggle {
     display: none;
+}
+
+.user-auth-status {
+    border-radius:10px;
+    background: #67b168;
 }
 
 

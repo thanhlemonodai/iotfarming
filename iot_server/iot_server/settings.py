@@ -87,6 +87,8 @@ INSTALLED_APPS = [
     'channels',
     'stream.apps.StreamConfig',
     'corsheaders',
+    'crispy_forms',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -196,3 +198,7 @@ CHANNEL_LAYERS = {
     },
 }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'iot-home-dashboard'

@@ -212,6 +212,7 @@ def control_button_farm_update(request, pk):
                                                  data=request.data)
 
     if serializers.is_valid():
+        print(serializers.errors)
         serializers.save()
     return Response(serializers.data)
 

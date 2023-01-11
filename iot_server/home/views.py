@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.http import condition
 from django.http import StreamingHttpResponse
 from farm.models import *
 from farm.serializers import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 from asgiref.sync import sync_to_async
 import os
 import django
@@ -16,6 +19,19 @@ def homeview(request):
 
 def home_block(request):
     return render(request, 'home/home_block.html')
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            print(form.errors)
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created fro {username}!')
+            return redirect('iot-home-dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'home/register.html', {'form':form})
 
 @condition(etag_func=None)
 def stream_response(request):
