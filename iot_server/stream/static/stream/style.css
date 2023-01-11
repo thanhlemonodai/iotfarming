@@ -191,6 +191,24 @@ header div button {
 
 }
 
+.login {
+    display: flex;
+
+}
+
+.login a {
+    margin-left: 20px;
+    color: #0f0f0f;
+}
+
+.logout {
+    margin-left: 20px;
+}
+
+.logout a {
+    color: #0f0f0f;
+}
+
 main {
     margin-top: 71px;
     padding: 2rem 1.5rem;

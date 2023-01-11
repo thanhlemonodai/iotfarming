@@ -286,8 +286,16 @@
 
 
         evtSource.onmessage = function(e) {
-            get_control_button_farm(url_controlbutton);
-            updating_button_onfarm(pomp1, fan1, servor1, saveenergy)
+            if (check_updating === true) {
+                count_check_updating--;
+                if (count_check_updating === 0) {
+                    check_updating = false;
+                }
+            } else {
+                get_control_button_farm(url_controlbutton);
+                updating_button_onfarm(pomp1, fan1, servor1, saveenergy)
+            }
+
             //console.log(e);
             //console.log("data:" + e.data);
             var b64bufC01, b64bufC02, b64bufC03, b64bufC04;
@@ -315,6 +323,9 @@
 
 
     }
+
+    var check_updating = false;
+    var count_check_updating = 0;
 
     var buffer_video_C01 = [];
     var buffer_video_C02 = [];
@@ -416,7 +427,7 @@
                 body: JSON.stringify(send_data),
             })
                 .then((response) => {
-                    console.log(response.text())
+                    console.log(response.text());
                 })
                 .then((data) => {
                     console.log("Success", data);
@@ -444,21 +455,28 @@
 
     togBtn.addEventListener("click", function() {
         control_button_on_farm(togBtn.checked, pomp2, servor1, servor2, fan1, fan2, saveenergy);
-
+        check_updating = true;
+        count_check_updating = 2;
     })
 
     togBtn1.addEventListener("click", function() {
         control_button_on_farm(pomp1, pomp2, servor1, servor2, togBtn1.checked, fan2, saveenergy);
+        check_updating = true;
+        count_check_updating = 2;
     })
 
     togBtn2.addEventListener("click", function() {
         control_button_on_farm(pomp1, pomp2, togBtn2.checked, servor2, fan1, fan2, saveenergy);
+        check_updating = true;
+        count_check_updating = 2;
     })
 
     //save energy
     togBtn3.addEventListener("click", function() {
         saveenerg = togBtn.checked === true;
         control_button_on_farm(pomp1, pomp2, servor1, servor2, fan1, fan2, togBtn3.checked);
+        check_updating = true;
+        count_check_updating = 2;
     })
 
     var buffer_video = [];
