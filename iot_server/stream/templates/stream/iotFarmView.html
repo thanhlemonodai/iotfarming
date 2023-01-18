@@ -204,6 +204,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% csrf_token %}
 <script>
+    var data = JSON.parse("{{ data|escapejs }}")
+    console.log(data.temp_chart)
+
     var user_activate_ele = document.getElementsByClassName("user-auth-status")[0];
     var user_activate_text_ele = document.getElementById("user-auth-status-text");
     user_activate_ele.style.display =  "inline"
@@ -418,7 +421,7 @@
                             test_fields: true
                         }
         if (authen === true) {
-            fetch(url_check, {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -506,10 +509,11 @@
         new Chart(tempctx, {
             type: 'line',
             data: {
-                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'],
+                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9', 'day10',
+                'day11', 'day12', 'day13', 'day14', 'day15', 'day16', 'day17', 'day18', 'day19', 'day20'],
                 datasets: [{
-                    label: 'temperature',
-                    data: [18, 17, 16, 18, 17, 15],
+                    label: 'temperature[°C]',
+                    data: data.temp_chart,
                     borderColor: '#f88',
                     borderWidth: 1
                 }]
@@ -519,7 +523,7 @@
                     y: {
                         beginAtZero: true,
                         min:0,
-                        max:30,
+                        max:50,
                     }
                 }
             }
@@ -530,10 +534,11 @@
         new Chart(humidityctx, {
             type: 'line',
             data: {
-                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'],
+                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9', 'day10',
+                'day11', 'day12', 'day13', 'day14', 'day15', 'day16', 'day17', 'day18', 'day19', 'day20'],
                 datasets: [{
-                    label: 'humidity',
-                    data: [70, 60, 50, 55, 75, 40],
+                    label: 'humidity[%]',
+                    data: data.humidity_chart,
                     borderWidth: 1
                 }]
             },
@@ -553,10 +558,11 @@
         new Chart(waterctx, {
             type: 'line',
             data: {
-                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8'],
+                labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9', 'day10',
+                'day11', 'day12', 'day13', 'day14', 'day15', 'day16', 'day17', 'day18', 'day19', 'day20'],
                 datasets: [{
-                    label: 'water',
-                    data: [180, 657, 516, 418, 617, 415],
+                    label: 'water[%]',
+                    data: data.water_chart,
                     borderWidth: 1
                 }]
             },
@@ -564,8 +570,8 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        min:100,
-                        max:1000,
+                        min:0,
+                        max:100,
                     }
                 }
             }
@@ -578,7 +584,7 @@
             data: {
                 labels: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7', 'day8', 'day9', 'day10'],
                 datasets: [{
-                    label: 'Tree growth',
+                    label: 'Tree growth[cm]',
                     data: [1, 2, 3, 5, 6, 7, 8, 9, 10, 10, 10, 11],
                     borderWidth: 1,
                     borderColor: '#2EC600',
