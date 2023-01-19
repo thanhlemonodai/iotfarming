@@ -28,7 +28,6 @@ def iotFarmView(request):
     for i in range(range_date):
         preday = dt - timedelta(range_date - i)
         date_list.append(preday.date().__str__())
-    print(date_list)
     temperature_list = []
     water_list = []
     humidity_list = []
@@ -41,9 +40,6 @@ def iotFarmView(request):
             humidity_list.append(farmstatus[0].humidity)
         except IndexError as e:
             pass
-    print(temperature_list)
-    print(humidity_list)
-    print(water_list)
     s = get_ngrok_url()
 
     context = {

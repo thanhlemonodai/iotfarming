@@ -295,3 +295,41 @@ input:checked + .slider3:after
     left: 25%;
 }
 
+/*------ ADDED CSS ---------*/
+
+.ECM_CheckboxInput {
+    margin-left: 9px;
+}
+.ECM_CheckboxInput-Input {
+  margin: 0;
+  width: 0;
+  opacity: 0;
+}
+.ECM_CheckboxInput:hover{
+
+}
+.ECM_CheckboxInput:hover > .ECM_CheckboxInput-DummyInput{
+
+}
+.ECM_CheckboxInput-Input:focus + .ECM_CheckboxInput-DummyInput{
+
+}
+.ECM_CheckboxInput-Input:checked + .ECM_CheckboxInput-DummyInput {
+  background: orange;
+}
+
+.ECM_CheckboxInput-DummyInput {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: solid 2px transparent;
+  background: rgba(0, 0, 0, .15);
+  border-radius: 50%;
+  transition: all .15s linear;
+}
+.ECM_CheckboxInput-LabelText {
+  margin-left: 12px;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+}
