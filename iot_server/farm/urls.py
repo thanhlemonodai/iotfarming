@@ -82,6 +82,10 @@ urlpatterns = [
          views.cam_model_crate,
          name='api-test-cam-create'),
 
+    path('api/test-cam/viewall/<str:flt>/',
+         views.cam_model_view_filter,
+         name='api-test-cam-view-all'),
+
 ###########################################
     path('api/button/view/<str:pk>/',
          views.control_button_farm_view,

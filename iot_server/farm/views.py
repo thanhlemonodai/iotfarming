@@ -204,6 +204,13 @@ def cam_model_crate(request):
         serializers.save()
     return Response(serializers.data)
 
+@api_view(['GET'])
+@csrf_exempt
+def cam_model_view_filter(request, flt):
+    testcam = TestCam.objects.filter(veget = flt).all()
+    serializers = TestCamSerializers(testcam, many=True)
+    return Response(serializers.data)
+
 @api_view(['POST','GET'])
 @csrf_exempt
 def control_button_farm_update(request, pk):
