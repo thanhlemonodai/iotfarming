@@ -57,6 +57,13 @@ def api_farm_status_list(request):
 
 @api_view(['GET'])
 @csrf_exempt
+def api_farm_status_lastdata(request):
+    farm_status = FarmStatus.objects.latest("id")
+    serializers = FarmStatusSerializers(farm_status, many=False)
+    return Response(serializers.data)
+
+@api_view(['GET'])
+@csrf_exempt
 def api_farm_status_detail(request, pk):
     farm_status = FarmStatus.objects.get(id=pk)
     serializers = FarmStatusSerializers(farm_status, many=False)

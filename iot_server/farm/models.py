@@ -50,14 +50,14 @@ class VegetableStatus(models.Model):
         return "{}:{}".format(self.vegetable.vegetablename, self.datetimegrowth)
 
 class ControlButtonInFarm(models.Model):
-    pomp1 = models.BooleanField(null=False)
-    pomp2 = models.BooleanField(null=False)
-    servor1 = models.BooleanField(null=False)
-    servor2 = models.BooleanField(null=False)
-    fan1 = models.BooleanField(null=False)
-    fan2 = models.BooleanField(null=False)
-    saveEnergy = models.BooleanField(null=False)
-    test_fields = models.BooleanField(null=False)
+    pomp1 = models.BooleanField(null=True)
+    pomp2 = models.BooleanField(null=True)
+    servor1 = models.BooleanField(null=True)
+    servor2 = models.BooleanField(null=True)
+    fan1 = models.BooleanField(null=True)
+    fan2 = models.BooleanField(null=True)
+    saveEnergy = models.BooleanField(null=True)
+    test_fields = models.BooleanField(null=True)
 
 
 class VegetableTimeLapseVideo(models.Model):
